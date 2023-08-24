@@ -9,6 +9,7 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  var _controller = TextEditingController();
   late ScrollController _scrollController;
 
   @override
@@ -55,14 +56,64 @@ class _HomePageState extends ConsumerState<HomePage> {
                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
                     itemBuilder: (context, index) => OpenContainer(
                       closedElevation: 0,
-                      closedBuilder: (context, action) =>
-                          ComicCard(comic: state.listOfCharacters?[index]),
-                      openBuilder: (context, action) => Container(),
+                      closedBuilder: (context, action) => ComicCard(
+                        comic: state.listOfCharacters?[index],
+                        onTap: () {
+                          action();
+                          viewState.getCharacterDetail(
+                              state.listOfCharacters?[index].id.toString() ??
+                                  '');
+                        },
+                      ),
+                      openBuilder: (context, action) => const DetailPage(),
                     ),
                   )
                 : const Center(
                     child: Text('Upps parece que ocurrio algo, no hay datos')),
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+                context: context,
+                builder: (context) => GestureDetector(
+                      onTap: () => FocusScope.of(context).unfocus(),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20.h),
+                          height: 120.h,
+                          child: Column(
+                            children: [
+                              Text(
+                                'Search something in the actual list',
+                                style: AppStyles.title1,
+                              ),
+                              SizedBox(height: 20.h),
+                              TextField(
+                                controller: _controller,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.search),
+                                  labelText: 'Search...',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                showDragHandle: true,
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20))));
+          },
+          child: const Icon(Icons.search)),
     );
   }
 }

@@ -10,3 +10,4 @@ import 'package:prueba_tecnica_bia/ui/constants/styles.dart';
 part 'comic_card.dart';
 part 'header_with_text.dart';
 part 'custom_loading_shimmer.dart';
+part 'custom_loading.dart';
