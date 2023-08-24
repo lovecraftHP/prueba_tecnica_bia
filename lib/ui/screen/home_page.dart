@@ -46,9 +46,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       endDrawer: const Drawer(),
       body: Container(
         child: state.listOfCharacters == null
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
+            ? const CustomLoadingShimmer()
             : (state.listOfCharacters?.isNotEmpty ?? false)
                 ? ListView.builder(
                     itemCount: state.listOfCharacters?.length,
