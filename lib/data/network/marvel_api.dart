@@ -33,12 +33,6 @@ class MarvelApi with UtilitiesHelper implements MarvelRepository {
   }
 
   @override
-  Future<void> searchCharacter(String value) {
-    // TODO: implement searchCharacter
-    throw UnimplementedError();
-  }
-
-  @override
   Future<ResultsResponseModel?> getDetailCharacter(String id) async {
     late ResultsResponseModel? result;
     try {
@@ -54,5 +48,19 @@ class MarvelApi with UtilitiesHelper implements MarvelRepository {
       rethrow;
     }
     return result;
+  }
+
+  @override
+  List<ResultsResponseModel> searchCharacter(
+      String value, List<ResultsResponseModel> originalList) {
+    if (value.isNotEmpty) {
+      return originalList
+          .where((comic) =>
+              (comic.name?.toLowerCase().contains(value.toLowerCase()) ??
+                  false))
+          .toList();
+    } else {
+      return originalList;
+    }
   }
 }
