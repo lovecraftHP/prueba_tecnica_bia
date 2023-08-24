@@ -100,6 +100,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                 ),
+                                onChanged: (value) {
+                                  viewState.searchCharacter(value);
+                                },
+                                onSubmitted: (value) => Navigator.pop(context),
                               ),
                             ],
                           ),

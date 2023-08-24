@@ -35,11 +35,14 @@ class _DetailPageState extends ConsumerState<DetailPage> {
             ),
           ),
           SliverToBoxAdapter(
+            child: TitleDetail(name: selectedComic?.name),
+          ),
+          SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.only(top: 10.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                mainAxisSize: MainAxisSize.max,
+              child: Wrap(
+                direction: Axis.horizontal,
+                alignment: WrapAlignment.spaceBetween,
                 children: [
                   HeaderWithText(
                     header: 'comics',
@@ -71,16 +74,39 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                       ? selectedComic!.description!
                       : defaultDescription,
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
+                  style: AppStyles.descriptionText,
                 ),
               ),
               const Divider(color: Colors.grey),
+              if (((selectedComic?.comics?.items?.isEmpty ?? false) ||
+                  (selectedComic?.series?.items?.isEmpty ?? false)))
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: Center(
+                      child: Text(
+                    'Upps... looks like there is not comic or serie to show here',
+                    style: AppStyles.descriptionText,
+                  )),
+                ),
+              if (selectedComic?.comics?.items?.isNotEmpty ?? false)
+                LatestComicSection(
+                  title: 'Latest 5 comic',
+                  colorItems: Colors.blue,
+                  items: selectedComic?.comics?.items
+                      ?.map((e) => e.name ?? '')
+                      .toList(),
+                ),
+              if (selectedComic?.series?.items?.isNotEmpty ?? false)
+                LatestComicSection(
+                  title: 'Latest 5 Series',
+                  colorItems: Colors.purple,
+                  items: selectedComic?.series?.items
+                      ?.map((e) => e.name ?? '')
+                      .toList(),
+                ),
+              SizedBox(height: 20.h)
             ]),
-          )
+          ),
         ],
       ),
     );

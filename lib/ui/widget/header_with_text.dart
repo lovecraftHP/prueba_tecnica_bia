@@ -15,6 +15,7 @@ class HeaderWithText extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text('${header?.toCapitalize()}: ', style: AppStyles.subTitle1),
           Text(value ?? '', style: AppStyles.subTitle2),
