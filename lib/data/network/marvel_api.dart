@@ -37,4 +37,22 @@ class MarvelApi with UtilitiesHelper implements MarvelRepository {
     // TODO: implement searchCharacter
     throw UnimplementedError();
   }
+
+  @override
+  Future<ResultsResponseModel?> getDetailCharacter(String id) async {
+    late ResultsResponseModel? result;
+    try {
+      var ts = DateTime.timestamp();
+      var hash = createHashparam('$ts$_secret$_apiKey');
+      var response = await dio.get('$_baseUrl/$id', queryParameters: {
+        'ts': ts,
+        'apikey': '$_apiKey',
+        'hash': hash,
+      });
+      result = ResponseApiModel.fromJson(response.data).data?.results?.first;
+    } catch (e) {
+      rethrow;
+    }
+    return result;
+  }
 }

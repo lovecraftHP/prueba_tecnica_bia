@@ -4,6 +4,15 @@ class MarvelController extends StateNotifier<MarvelState> {
   MarvelController({required this.api}) : super(MarvelState());
   final MarvelRepository api;
 
+  Future<void> getCharacterDetail(String id) async {
+    try {
+      var res = await api.getDetailCharacter(id);
+      state = state.copyWith(characterDetails: res);
+    } catch (error) {
+      print('upps... something went wrong=> $error');
+    }
+  }
+
   Future<void> getAllCharacteres({bool? reachTheBottom = false}) async {
     try {
       if (reachTheBottom ?? false) {
