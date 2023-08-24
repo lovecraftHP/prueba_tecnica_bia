@@ -1,16 +1,34 @@
-# prueba_tecnica_bia
+# Prueba tecnica bia
 
-A new Flutter project.
+En este proyecto se encontrara el desarrollo de la prueba tecnica en donde se estara utilizando la API de Marvel para
+mostrar los datos principales de la app.
+a forma de aclaracion se escogieron los **Personajes de los comics** como objetos a mostrar de forma listada
 
-## Getting Started
+## Dependecias
 
-This project is a starting point for a Flutter application.
+a continuacion las versiones de sdk y paquetes que se utilizaron para el desarrollo
 
-A few resources to get you started if this is your first Flutter project:
+Flutter: **3.10.6**
+Dart: **3.0.6**
+* animations: ^2.0.7
+* cupertino_icons: ^1.0.2
+* crypto: ^3.0.3
+* dio: ^5.3.2
+* flutter_riverpod: ^2.3.6
+* flutter_screenutil: ^5.1.0
+* flutter_dotenv: ^5.1.0
+* fade_shimmer: ^2.2.0
+* intl: ^0.18.1
+* pretty_dio_logger: ^1.3.1
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Instalacion
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+para instalar dependencias ejecutar el siguiente comando
+
+`flutter pub get`
+
+en caso de algun error existente con las dependencias
+
+`flutter clean cache`
+
+`flutter pub get`
