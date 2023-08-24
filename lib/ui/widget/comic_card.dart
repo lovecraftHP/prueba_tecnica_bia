@@ -26,7 +26,7 @@ class ComicCard extends StatelessWidget {
                   image: NetworkImage(
                     '${comic?.thumbnail?.path}.${comic?.thumbnail?.extension}',
                   ),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 )),
           ),
           Expanded(

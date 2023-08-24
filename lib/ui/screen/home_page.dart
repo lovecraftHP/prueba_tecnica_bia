@@ -9,11 +9,21 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
     ref.read(marvelProvider.notifier).getAllCharacteres();
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      if (_scrollController.position.atEdge &&
+          _scrollController.position.pixels != 0) {
+        ref
+            .read(marvelProvider.notifier)
+            .getAllCharacteres(reachTheBottom: true);
+      }
+    });
   }
 
   @override
@@ -42,6 +52,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             : (state.listOfCharacters?.isNotEmpty ?? false)
                 ? ListView.builder(
                     itemCount: state.listOfCharacters?.length,
+                    controller: _scrollController,
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
                     itemBuilder: (context, index) => OpenContainer(

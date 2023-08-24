@@ -14,7 +14,7 @@ class MarvelApi with UtilitiesHelper implements MarvelRepository {
   }
 
   @override
-  Future<ResponseApiModel> getAllCharacters() async {
+  Future<ResponseApiModel> getAllCharacters({int? nextValues = 15}) async {
     late ResponseApiModel result;
     try {
       var ts = DateTime.timestamp();
@@ -23,7 +23,7 @@ class MarvelApi with UtilitiesHelper implements MarvelRepository {
         'ts': ts,
         'apikey': '$_apiKey',
         'hash': hash,
-        'limit': 20,
+        'limit': nextValues,
       });
       result = ResponseApiModel.fromJson(response.data);
     } catch (e) {
