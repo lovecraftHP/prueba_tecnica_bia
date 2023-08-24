@@ -26,8 +26,18 @@ class MarvelController extends StateNotifier<MarvelState> {
     }
   }
 
+  void searchCharacter(String valueToSearch) async {
+    if (valueToSearch.isEmpty) {
+      await _fetchCharacteres(state.limitToSearch);
+    } else {
+      var res =
+          api.searchCharacter(valueToSearch, (state.listOfCharacters ?? []));
+      state = state.copyWith(listOfCharacters: res);
+    }
+  }
+
   Future<void> _fetchCharacteres(int? limit) async {
-    var res = await await api.getAllCharacters(nextValues: state.limitToSearch);
+    var res = await api.getAllCharacters(nextValues: state.limitToSearch);
     state = state.copyWith(listOfCharacters: res.data?.results ?? []);
   }
 }
