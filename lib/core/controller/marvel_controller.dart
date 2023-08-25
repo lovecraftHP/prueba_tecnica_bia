@@ -40,6 +40,10 @@ class MarvelController extends StateNotifier<MarvelState> {
     var res = await api.getAllCharacters(nextValues: state.limitToSearch);
     state = state.copyWith(listOfCharacters: res.data?.results ?? []);
   }
+
+  void cleanDetailState() {
+    state = state.copyWith(characterDetails: null);
+  }
 }
 
 final marvelProvider =
